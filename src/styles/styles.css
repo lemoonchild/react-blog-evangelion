@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Oranienbaum&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oranienbaum&family=Pangolin&family=Shippori+Mincho+B1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oranienbaum&family=Pangolin&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Shippori+Mincho+B1&display=swap');
+
+body {
+  background-image: url('../resources/blogimage.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  background: transparent;
+  padding: 20px;
+  width: 100%;
+}
+
+.upper-section {
+  display: flex; /* Crea una fila para el título y el contenedor de imagen/botón */
+  justify-content: space-between;
+  width: 93%; /* Utiliza el ancho completo del header */
+  margin-bottom: 20px;
+}
+
+.titles {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #45576a;
+  height: 180px;
+  width: 600px;
+  margin: 0 auto;
+  margin-right: 20px;
+  border-color: #19272c;
+}
+
+h1 {
+  font-family: 'Oranienbaum', serif;
+  font-size: 55px;
+  color: #fff;
+  display: inline-block;
+  margin: 0;
+}
+
+h2 {
+  font-family: 'Pangolin', serif;
+  font-size: 50px;
+  transform: rotate(-40deg);
+  color: #fff;
+  display: inline-block;
+  cursor: pointer;
+  transition: font-size 0.3s;
+  margin-left: 10px;
+  transition: transform 0.3s, font-size 0.3s;
+  cursor: pointer;
+}
+
+h2:hover {
+  font-size: 60px;
+}
+
+.button-and-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-next-to-button {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.navigation,
+.header-banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+  padding: 20px;
+  margin: 10px;
+  box-sizing: border-box;
+}
+
+.navigation {
+  background-color: #c7d4dc;
+  border-color: #19272c;
+}
+
+.navigation a {
+  text-decoration: none;
+  color: black;
+  margin-right: 20px;
+  font-family: 'Roboto Serif', sans-serif;
+  border-color: #19272c;
+}
+
+.header-banner {
+  font-family: 'Roboto Serif', sans-serif;
+  background: #fff;
+  color: #000;
+  border-top: 2px #000;
+}
+
+.lower-section {
+  display: flex;
+  width: 93%;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 93%;
+  margin-right: 0 auto;
+}
+
+.congratulations-toggle {
+  font-family: 'Roboto Serif', sans-serif;
+  width: 120px; /* Establece un ancho para el botón */
+  height: 50px; /* Establece un alto para el botón */
+  background: #7e9aa6; /* Color de fondo del botón */
+  color: #fff; /* Color del texto del botón */
+  border-color: #19272c;
+  cursor: pointer;
+}
+
+.section-title {
+  font-family: 'Roboto Serif', sans-serif;
+  font-size: 25px;
+  color: #19272c; /* Ajusta el color según tu diseño */
+  margin-bottom: 10px; /* Espacio entre el título y el contenido de la sección */
+  text-align: center; /* Alinea el texto a la izquierda */
+  font-weight: bold;
+}

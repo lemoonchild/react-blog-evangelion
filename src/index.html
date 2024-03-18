@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Evangelion Blog!</title>
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const Header = () => {
+        const audioRef = React.useRef(null)
+
+        const playAudio = () => {
+          if (audioRef.current) {
+            audioRef.current.currentTime = 0
+            audioRef.current.play().catch((e) => console.error('Error:', e))
+          }
+        }
+
+        const [isExpanded, setIsExpanded] = React.useState(false)
+
+        const toggleExpansion = () => {
+          setIsExpanded(!isExpanded)
+        }
+
+        return (
+          <header className="header">
+            <div className="upper-section">
+              <div className="titles">
+                <h1>Neon Genesis Evangelion</h1>
+                <h2 onClick={toggleExpansion} className={isExpanded ? 'h2-expanded' : ''}>
+                  Blog!
+                </h2>
+              </div>
+
+              <div className="button-and-image-container">
+                <img
+                  className="image-next-to-button"
+                  src="./resources/shinji.jpg"
+                  alt="Shinji Chihuahua"
+                />
+                <button className="congratulations-toggle" onClick={playAudio}>
+                  Congratulations!
+                </button>
+                <audio
+                  ref={audioRef}
+                  src="resources/contratulations.mp3"
+                  type="audio/mpeg"
+                  hidden
+                />
+              </div>
+            </div>
+            <div className="lower-section">
+              <nav className="navigation">
+                <div className="section-title">Navigation!</div>
+                <a href="/Index">Index</a>
+                <a href="/About">About the blog</a>
+                <a href="/Contact">My contact!</a>
+              </nav>
+              <div className="header-banner">
+                <div className="section-title">Hello!</div>
+                <p>Welcome to my silly evangelion fanpage!</p>
+                <p>I love my Rei Chiquita :3333</p>
+              </div>
+            </div>
+          </header>
+        )
+      }
+
+      const Footer = () => {
+        return (
+          <footer className="footer">
+            <div className="options">Go top</div>
+            <div className="blog-info">
+              {' '}
+              {/* Corrected from clasNames to className */}
+              Created: 11/03/2024 Last update: 12/03/2024 Hosted on Tiburoncin.lat
+            </div>
+
+            <div className="phrase">
+              Anywhere can be paradise as long as you have the will to live. After all, you are
+              alive, so you will always have the chance to be happy.
+            </div>
+
+            <div className="socials">My socials!</div>
+          </footer>
+        )
+      }
+
+      const Post = ({ title, body, author, category, tags }) => {
+        return (
+          <li className="post">
+            <h3>{title}</h3>
+            <p>{body}</p>
+            <p>Author: {author}</p>
+            <p>Category: {category}</p>
+            <p>Tags: {tags}</p>
+          </li>
+        )
+      }
+
+      const Posts = () => {
+        const [posts, setPosts] = React.useState([])
+
+        const getPosts = async () => {
+          const apiResponse = await fetch('https://api.tiburoncin.lat/22473/posts')
+          const jsonPosts = await apiResponse.json()
+          const formattedPosts = jsonPosts.map(({ title, content, author, category, tags }) => ({
+            title,
+            body: content,
+            author,
+            category,
+            tags,
+          }))
+          setPosts(formattedPosts)
+        }
+
+        React.useEffect(() => {
+          getPosts()
+        }, [])
+
+        if (posts.length === 0) {
+          return (
+            <ul className="Loading">
+              <li>Loading...Rei chiquita girando ACORDATE</li>
+            </ul>
+          )
+        }
+
+        return (
+          <ul className="Evangelion-Posts">
+            {posts.map((post, index) => (
+              <Post
+                key={index}
+                title={post.title}
+                body={post.body}
+                author={post.author}
+                category={post.category}
+                tags={post.tags}
+              />
+            ))}
+          </ul>
+        )
+      }
+
+      const App = () => {
+        const styles = {}
+
+        return (
+          <main>
+            <Header />
+            <Posts />
+            <Footer />
+          </main>
+        )
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('root'))
+      root.render(<App />)
+    </script>
+  </body>
+</html>
