@@ -3,6 +3,9 @@
 ## About The Project
 The Evangelion Blog is a fan-made platform to celebrate the rich universe of the Neon Genesis Evangelion series. This web application serves as a hub for fans to explore content, share insights, and relive the iconic moments of the series through a modern, interactive experience. It's built using the power of React, Babel for JSX compilation, and CSS for styling.
 
+
+[Link to the proyect](https://tiburoncin.lat/22473/react-blog-evangelion/src/index.html)
+
 ### Features
 
 - **Dynamic Content Loading**: Leverages a RESTful API hosted on Tiburoncin.lat to fetch and display blog posts.
