@@ -7,14 +7,16 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.js"
+      integrity="sha512-Y1I7EwGGjtHaioSQ70oCoWR73HqUN2YdVmSFf9G0u2cnUToGIZRPkW+QNEZ77afq8hxao7cD+CugWdZI3SQULg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="text/babel">
-      const PropTypes = {
-        string: () => {},
-      }
       const Header = () => {
         const audioRef = React.useRef(null)
 
@@ -197,14 +199,14 @@
             <Header />
             {loading ? (
               <div className="loading-container">
-                <img src="../resources/chiquita.gif" alt="Loading..." />
+                <img src="./resources/chiquita.gif" alt="Loading..." />
               </div>
             ) : error ? (
               <div className="error-state">
                 {error === 'No posts found.' ? (
                   <div className="empty-state-container">
                     <img
-                      src="../resources/rei.jpg"
+                      src="./resources/rei.jpg"
                       alt="No posts available"
                       className="empty-state-image"
                     />
