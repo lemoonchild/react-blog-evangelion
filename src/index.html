@@ -7,10 +7,14 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="text/babel">
+      const PropTypes = {
+        string: () => {},
+      }
       const Header = () => {
         const audioRef = React.useRef(null)
 
@@ -54,46 +58,76 @@
                 />
               </div>
             </div>
-            <div className="lower-section">
-              <nav className="navigation">
-                <div className="section-title">Navigation!</div>
-                <a href="/Index">Index</a>
-                <a href="/About">About the blog</a>
-                <a href="/Contact">My contact!</a>
-              </nav>
-              <div className="header-banner">
-                <div className="section-title">Hello!</div>
-                <p>Welcome to my silly evangelion fanpage!</p>
-                <p>I love my Rei Chiquita :3333</p>
-              </div>
-            </div>
           </header>
         )
       }
 
       const Footer = () => {
+        const scrollToTop = () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth', // para un efecto de desplazamiento suave
+          })
+        }
+
         return (
           <footer className="footer">
-            <div className="options">Go top</div>
+            <div className="go-top" onClick={scrollToTop}>
+              Go Top
+            </div>
             <div className="blog-info">
-              {' '}
-              {/* Corrected from clasNames to className */}
-              Created: 11/03/2024 Last update: 12/03/2024 Hosted on Tiburoncin.lat
+              <p>Created: 11/03/2024 Last update: 19/03/2024</p>
+              <p> Hosted on Tiburoncin.lat </p>
             </div>
-
             <div className="phrase">
-              Anywhere can be paradise as long as you have the will to live. After all, you are
-              alive, so you will always have the chance to be happy.
+              "Anywhere can be paradise as long as you have the will to live. After all, you are
+              alive, so you will always have the chance to be happy."
             </div>
-
-            <div className="socials">My socials!</div>
+            <div className="nothing">
+              <p>
+                I'll add some more cool stuff to this site once I figure out what else to put here.
+              </p>
+            </div>
           </footer>
+        )
+      }
+
+      const BlogContent = ({ posts }) => {
+        return (
+          <div className="blog-container">
+            <div className="lower-section">
+              <nav className="navigation">
+                <div className="section-title">Navigation!</div>
+                <a href="/Email">e-mail</a>
+                <a href="/About">about the blog</a>
+                <a href="/github">github!</a>
+              </nav>
+              <div className="header-banner">
+                <div className="section-title">Hello!</div>
+                <a>Welcome to my silly evangelion fanpage!</a>
+                <a>I love my Rei Chiquita :3333</a>
+                <a>Stay healthy!</a>
+              </div>
+            </div>
+            <ul className="posts-list">
+              {posts.map((post, index) => (
+                <Post
+                  key={index}
+                  title={post.title}
+                  body={post.body}
+                  author={post.author}
+                  category={post.category}
+                  tags={post.tags}
+                />
+              ))}
+            </ul>
+          </div>
         )
       }
 
       const Post = ({ title, body, author, category, tags }) => {
         return (
-          <li className="post">
+          <li className="posts-item">
             <h3>{title}</h3>
             <p>{body}</p>
             <p>Author: {author}</p>
@@ -102,35 +136,7 @@
           </li>
         )
       }
-
-      const Posts = () => {
-        const [posts, setPosts] = React.useState([])
-
-        const getPosts = async () => {
-          const apiResponse = await fetch('https://api.tiburoncin.lat/22473/posts')
-          const jsonPosts = await apiResponse.json()
-          const formattedPosts = jsonPosts.map(({ title, content, author, category, tags }) => ({
-            title,
-            body: content,
-            author,
-            category,
-            tags,
-          }))
-          setPosts(formattedPosts)
-        }
-
-        React.useEffect(() => {
-          getPosts()
-        }, [])
-
-        if (posts.length === 0) {
-          return (
-            <ul className="Loading">
-              <li>Loading...Rei chiquita girando ACORDATE</li>
-            </ul>
-          )
-        }
-
+      const Posts = ({ posts }) => {
         return (
           <ul className="Evangelion-Posts">
             {posts.map((post, index) => (
@@ -147,13 +153,72 @@
         )
       }
 
+      Post.propTypes = {
+        title: PropTypes.string.isRequired,
+        body: PropTypes.string.isRequired,
+        author: PropTypes.string.isRequired,
+        category: PropTypes.string.isRequired,
+        tags: PropTypes.string.isRequired,
+      }
+
       const App = () => {
-        const styles = {}
+        const [posts, setPosts] = React.useState([])
+        const [loading, setLoading] = React.useState(true)
+        const [error, setError] = React.useState(null)
+
+        const getPosts = async () => {
+          try {
+            const apiResponse = await fetch('https://api.tiburoncin.lat/22473/posts')
+            if (!apiResponse.ok) throw new Error('Network response was not okay :()')
+            const jsonPosts = await apiResponse.json()
+            const formattedPosts = jsonPosts.map(({ title, content, author, category, tags }) => ({
+              title,
+              body: content,
+              author,
+              category,
+              tags,
+            }))
+            setPosts(formattedPosts)
+            if (formattedPosts.length === 0) setError('No posts found.')
+          } catch (error) {
+            setError('Failed to fetch posts. Please try again later.')
+            console.error('Failed to fetch posts:', error)
+          } finally {
+            setLoading(false)
+          }
+        }
+
+        React.useEffect(() => {
+          getPosts()
+        }, [])
 
         return (
           <main>
             <Header />
-            <Posts />
+            {loading ? (
+              <div className="loading-container">
+                <img src="../resources/chiquita.gif" alt="Loading..." />
+              </div>
+            ) : error ? (
+              <div className="error-state">
+                {error === 'No posts found.' ? (
+                  <div className="empty-state-container">
+                    <img
+                      src="../resources/rei.jpg"
+                      alt="No posts available"
+                      className="empty-state-image"
+                    />
+                    <p className="empty-state-message">No posts found. Please check back later.</p>
+                  </div>
+                ) : (
+                  <p>{error}</p>
+                )}
+              </div>
+            ) : (
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <BlogContent posts={posts} />
+              </React.Suspense>
+            )}
             <Footer />
           </main>
         )
