@@ -3,11 +3,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Oranienbaum&family=Pangolin&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Shippori+Mincho+B1&display=swap');
 
 body {
-  background-image: url('../resources/blogimage.jpg');
+  background-image: url('../resources/evangelion.gif');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
+}
+
+.parent-container {
+  overflow: scroll;
+  height: 100vh;
 }
 
 .header {
@@ -22,7 +27,7 @@ body {
 .upper-section {
   display: flex; /* Crea una fila para el título y el contenedor de imagen/botón */
   justify-content: space-between;
-  width: 93%; /* Utiliza el ancho completo del header */
+  width: 93%;
   margin-bottom: 20px;
 }
 
@@ -36,7 +41,8 @@ body {
   width: 600px;
   margin: 0 auto;
   margin-right: 20px;
-  border-color: #19272c;
+  border: 2px solid #19272c;
+  opacity: 0.8;
 }
 
 h1 {
@@ -79,60 +85,158 @@ h2:hover {
 
 .navigation,
 .header-banner {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 45%;
-  padding: 20px;
-  margin: 10px;
-  box-sizing: border-box;
 }
 
 .navigation {
   background-color: #c7d4dc;
-  border-color: #19272c;
+  margin-bottom: 20px;
+  border: 2px solid #19272c;
 }
 
-.navigation a {
-  text-decoration: none;
-  color: black;
-  margin-right: 20px;
+.navigation a,
+.header-banner a {
   font-family: 'Roboto Serif', sans-serif;
-  border-color: #19272c;
+  font-size: 16px;
+  color: black;
+  text-decoration: none;
+  margin-bottom: 15px;
+  display: block;
 }
 
 .header-banner {
-  font-family: 'Roboto Serif', sans-serif;
-  background: #fff;
-  color: #000;
-  border-top: 2px #000;
+  background: #95aebf;
+  border: 2px solid #19272c;
+}
+
+.blog-container {
+  display: flex;
+  align-items: flex-start;
 }
 
 .lower-section {
   display: flex;
-  width: 93%;
-  justify-content: space-around;
-  align-items: flex-start;
-  width: 93%;
-  margin-right: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 30%;
+  max-width: 30%;
+  box-sizing: border-box;
+  padding: 20px;
+  margin: 0 auto;
+  gap: 20px;
+  opacity: 0.8;
 }
 
 .congratulations-toggle {
   font-family: 'Roboto Serif', sans-serif;
-  width: 120px; /* Establece un ancho para el botón */
-  height: 50px; /* Establece un alto para el botón */
-  background: #7e9aa6; /* Color de fondo del botón */
-  color: #fff; /* Color del texto del botón */
-  border-color: #19272c;
+  width: 120px;
+  height: 50px;
+  background: #7e9aa6;
+  color: #fff;
+  border: 2px solid #19272c;
   cursor: pointer;
+  opacity: 0.8;
 }
 
 .section-title {
   font-family: 'Roboto Serif', sans-serif;
   font-size: 25px;
-  color: #19272c; /* Ajusta el color según tu diseño */
-  margin-bottom: 10px; /* Espacio entre el título y el contenido de la sección */
-  text-align: center; /* Alinea el texto a la izquierda */
+  color: #19272c;
+  margin-bottom: 20px;
+  text-align: center;
   font-weight: bold;
+}
+
+.posts-list {
+  font-family: 'Roboto Serif', sans-serif;
+  flex-basis: 70%;
+  max-width: 70%;
+  list-style-type: none; /* Remove bullets from list */
+  padding: 0; /* Reset padding */
+  background: #f0f0f0; /* Example color */
+  padding: 20px;
+  box-sizing: border-box;
+  margin-left: 60px;
+  border: 2px solid #19272c;
+  overflow-y: auto;
+  max-height: 800px;
+  opacity: 0.9;
+}
+
+.post {
+  background: #ffffff;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.loading-container img {
+  width: 300px; /* o el tamaño que prefieras */
+  height: auto;
+}
+
+.footer {
+  font-family: 'Roboto Serif', sans-serif;
+  transform: translateX(15%); /* Esto centrará el botón verticalmente */
+  width: 80%;
+  background: #aeccce;
+  color: black;
+  text-align: center;
+  padding: 20px 0;
+  position: relative;
+  opacity: 0.8;
+}
+
+.go-top {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  padding: 10px 15px;
+  background: #334a57;
+  color: white;
+  cursor: pointer;
+  border: none;
+  transform: translateX(-50%);
+}
+
+.error-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.empty-state-container {
+  text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #19272c;
+  opacity: 0.8;
+  margin-bottom: 50px;
+}
+
+.empty-state-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.empty-state-message {
+  font-family: 'Roboto Serif', sans-serif;
+  color: black;
+  font-size: 1.2em;
 }
